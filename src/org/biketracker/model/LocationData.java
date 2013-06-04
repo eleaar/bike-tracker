@@ -1,4 +1,4 @@
-package org.biketracker;
+package org.biketracker.model;
 
 import android.location.Location;
 
