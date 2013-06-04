@@ -1,27 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="org.biketracker">
-    <supports-screens android:largeScreens="true"
-                      android:normalScreens="true"
-                      android:smallScreens="false"/>
-    <application android:icon="@drawable/bike">
-        <activity android:name=".Launcher"
-                  android:label="Launch BikeTracker"
-                  android:theme="@android:style/Theme.NoDisplay">
+<manifest package="org.biketracker" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="false" />
+
+    <application android:icon="@drawable/bike" >
+        <!-- 
+        <activity
+            android:name=".Launcher"
+            android:label="Launch BikeTracker"
+            android:theme="@android:style/Theme.NoDisplay" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Flusher">
+         -->
+        <activity android:name=".Flusher" >
         </activity>
-        <service android:name=".TrackerService"
-                 android:label="@string/service_label">
+
+        <service
+            android:name=".TrackerService"
+            android:label="@string/service_label" >
+        </service>
+
+        <receiver 
+            android:name=".widget.BiketrackerWidgetProvider" 
+            android:label="@string/service_label" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/biketracker_appwidget_info" />
+        </receiver>
+        <service android:name=".service.BiketrackerService" android:label="@string/service_label">
+            <intent-filter>
+                <action android:name="org.biketracker.action.START_TRACKING"/>
+                <action android:name="org.biketracker.action.STOP_TRACKING"/>
+            </intent-filter>
         </service>
     </application>
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="11"/>
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="11" />
+
 </manifest>
