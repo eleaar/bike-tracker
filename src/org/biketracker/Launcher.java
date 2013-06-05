@@ -31,13 +31,13 @@ public class Launcher extends Activity {
 		
 		Notification note= new NotificationCompat.Builder(
 				this).setSmallIcon(R.drawable.ic_launcher_bike)
-				.setContentTitle("Bike tracker")
-				.setContentText("Click to stop bike tracking").setAutoCancel(true)
+				.setContentTitle(getString(R.string.notificationTitle))
+				.setContentText(getString(R.string.notification_content)).setAutoCancel(true)
 				.setContentIntent(pendingIntent)
 				.build();
 		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.notify(0, note);
 		
-		Toast.makeText(this, "Starting bike tracking", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, R.string.toast_starting, Toast.LENGTH_SHORT).show();
 	}
 }

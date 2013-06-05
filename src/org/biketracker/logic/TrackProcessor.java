@@ -10,10 +10,11 @@ import android.location.Location;
 
 public class TrackProcessor {
 
-	private final String serverUrl = "http://requestb.in/19yx6ds1";
+	private final String serverUrl;
 	private RestTemplate restTemplate;
 
-	public TrackProcessor() {
+	public TrackProcessor(String serverUrl) {
+		this.serverUrl = serverUrl;
 		restTemplate = new RestTemplate(true);
 		restTemplate.getMessageConverters().add(new GsonHttpMessageConverter());
 	}

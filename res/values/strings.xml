@@ -2,4 +2,9 @@
 <resources>
     <string name="service_label">biketracker_srv</string>
     <string name="launcher_label">BikeTracker</string>
+    <string name="toast_stopping">Stopping bike tracking</string>
+    <string name="toast_starting">Starting bike tracking</string>
+    <string name="notificationTitle">BikeTracker</string>
+    <string name="notification_content">Click to stop bike tracking</string>
+    <string name="server_url">http://requestb.in/vndmqqvn</string>
 </resources>

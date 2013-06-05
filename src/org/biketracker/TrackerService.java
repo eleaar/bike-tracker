@@ -32,7 +32,7 @@ public class TrackerService extends Service {
 	}
 
 	private void initializeComponents() {
-		processor = new TrackProcessor();
+		processor = new TrackProcessor(getString(R.string.server_url));
 		listener = new TrackListener(processor);
 		manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 	}

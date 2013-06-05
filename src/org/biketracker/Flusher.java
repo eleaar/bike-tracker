@@ -11,7 +11,7 @@ public class Flusher extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		stopService(new Intent(this, TrackerService.class));
-		Toast.makeText(this, "Stopping bike tracking", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, R.string.toast_stopping, Toast.LENGTH_SHORT).show();
 		finish();
 	}
 }
