@@ -1,19 +1,3 @@
-/*
- * Software is distributed on an "AS IS" basis,
- * WITHOUT WARRANTY OF ANY KIND, either express or implied.
- * 
- * The Initial Developer of the Original Code is Paweł Kamiński.
- * All Rights Reserved.
- */
-/**
- *
- * date        : 2011-07-25
- * author      : pawel
- * file name   : Launcher.java
- *
- * description :
- *
- */
 package org.biketracker;
 
 import android.app.Activity;
@@ -46,7 +30,7 @@ public class Launcher extends Activity {
 				resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		
 		Notification note= new NotificationCompat.Builder(
-				this).setSmallIcon(R.drawable.bike)
+				this).setSmallIcon(R.drawable.ic_launcher_bike)
 				.setContentTitle("Bike tracker")
 				.setContentText("Click to stop bike tracking").setAutoCancel(true)
 				.setContentIntent(pendingIntent)
