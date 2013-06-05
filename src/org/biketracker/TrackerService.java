@@ -14,13 +14,14 @@ public class TrackerService extends Service {
 
 	private static final String TAG = TrackerService.class.getSimpleName();
 
-	private final TrackProcessor processor = new TrackProcessor();
-	private final TrackListener listener = new TrackListener(processor);
-	private final LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+	private TrackProcessor processor;
+	private TrackListener listener;
+	private LocationManager manager;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		initializeComponents();
 		startGpsListener();
 	}
 
@@ -30,11 +31,15 @@ public class TrackerService extends Service {
 		super.onDestroy();
 	}
 
+	private void initializeComponents() {
+		processor = new TrackProcessor();
+		listener = new TrackListener(processor);
+		manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+	}
+
 	private void startGpsListener() {
 		Log.d(TAG, "Starting gps listener");
-		manager.requestLocationUpdates(
-				LocationManager.GPS_PROVIDER, 
-				1000, 0,
+		manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0,
 				listener);
 	}
 
