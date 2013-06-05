@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.location.Location;
 import android.location.LocationListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 public class TrackListener implements LocationListener {
@@ -22,8 +23,16 @@ public class TrackListener implements LocationListener {
 		locations.add(location);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void flush() {
-		processor.submit(locations);
+		new AsyncTask<List<Location>, Void, Void>() {
+			
+			@Override
+			protected Void doInBackground(List<Location>... locations) {
+				processor.submit(locations[0]);
+				return null;
+			}
+		}.execute(locations);
 		locations = new ArrayList<Location>();
 	}
 

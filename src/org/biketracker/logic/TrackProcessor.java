@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.biketracker.model.JsonMessage;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import android.location.Location;
+import android.os.AsyncTask;
+import android.util.Log;
 
 public class TrackProcessor {
 
@@ -20,6 +23,10 @@ public class TrackProcessor {
 	}
 
 	public void submit(List<Location> locations) {
-		restTemplate.put(serverUrl, new JsonMessage(locations));
+		try {
+			restTemplate.put(serverUrl, new JsonMessage(locations));
+		} catch(RestClientException e) {
+			Log.e(TrackProcessor.class.getSimpleName(), e.toString());
+		}
 	}
 }
