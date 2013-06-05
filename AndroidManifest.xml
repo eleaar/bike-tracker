@@ -9,33 +9,19 @@
     <application android:icon="@drawable/ic_launcher_bike" >
         <activity
             android:name=".Launcher"
-            android:label="Launch BikeTracker"
+            android:label="@string/launcher_label"
             android:theme="@android:style/Theme.NoDisplay" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Flusher" >
         </activity>
-
         <service
             android:name=".TrackerService"
             android:label="@string/service_label" >
         </service>
-
-        <receiver 
-            android:name=".widget.BiketrackerWidgetProvider" 
-            android:label="@string/widget_label" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/biketracker_appwidget_info" />
-        </receiver>
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
