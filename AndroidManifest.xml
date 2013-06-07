@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<manifest package="org.biketracker" xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.biketracker" >
 
     <supports-screens
         android:largeScreens="true"
@@ -8,23 +9,34 @@
 
     <application android:icon="@drawable/ic_launcher_bike" >
         <activity
-            android:name=".Launcher"
-            android:label="@string/launcher_label"
-            android:theme="@android:style/Theme.NoDisplay" >
+            android:name=".track.LaunchTrackingService"
+            android:label="@string/launcher_label" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Flusher" >
+        <activity android:name=".track.StopTrackingService" >
         </activity>
+
         <service
-            android:name=".TrackerService"
-            android:label="@string/service_label" >
+            android:name=".track.TrackingService"
+            android:label="@string/biketracker_trackingsrv" >
         </service>
+        <receiver android:name=".submit.NetworkChangeReceiver" 
+            android:label="@string/bicketracker_networklistnr">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver><service
+            android:name=".submit.SubmittingService"
+            android:label="@string/biketracker_submittingsrv" >
+        </service>
+
+        
     </application>
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />

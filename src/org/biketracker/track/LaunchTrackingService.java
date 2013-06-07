@@ -1,4 +1,6 @@
-package org.biketracker;
+package org.biketracker.track;
+
+import org.biketracker.R;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -10,7 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
-public class Launcher extends Activity {
+public class LaunchTrackingService extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -21,11 +23,11 @@ public class Launcher extends Activity {
 	}
 
 	private void startTrackingService() {
-		startService(new Intent(this, TrackerService.class));
+		startService(new Intent(this, TrackingService.class));
 	}
 
 	private void showNotification() {
-		Intent resultIntent = new Intent(this, Flusher.class);
+		Intent resultIntent = new Intent(this, StopTrackingService.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
 				resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 		
