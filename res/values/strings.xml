@@ -5,10 +5,7 @@
     <string name="toast_starting">Starting bike tracking</string>
     <string name="notificationTitle">BikeTracker</string>
     <string name="notification_content">Click to stop bike tracking</string>
-    <!-- 
     <string name="server_url">http://bike-tracker-krk.herokuapp.com/save-route</string>
-    -->
-    <string name="server_url">http://requestb.in/1k9eq361</string>
     <string name="biketracker_trackingsrv">biketracker_trackingSrv</string>
     <string name="biketracker_submittingsrv">biketracker_submittingSrv</string>
     <string name="bicketracker_networklistnr">bicketracker_networkListnr</string>
