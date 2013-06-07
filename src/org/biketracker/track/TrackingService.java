@@ -11,6 +11,7 @@ import org.biketracker.submit.SubmittingService;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -52,16 +53,24 @@ public class TrackingService extends Service {
 		LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		manager.removeUpdates(listener);
 
-		// Saving locations into shared preferences
-		UUID uuid = UUID.randomUUID();
-		PreferenceManager
-				.getDefaultSharedPreferences(this)
-				.edit()
-				.putString(uuid.toString(), converter.convert(uuid, locations))
-				.commit();
+		final List<Location> currentLocations = locations;
+		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		final Intent intent = new Intent(this, SubmittingService.class);
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// Saving locations into shared preferences
+				UUID uuid = UUID.randomUUID();
+				preferences
+					.edit()
+					.putString(uuid.toString(), converter.convert(uuid, currentLocations))
+					.commit();
 
-		// Starting the submitting service
-		startService(new Intent(this, SubmittingService.class));
+				// Starting the submitting service
+				startService(intent);
+			}
+		}).start();
 
 		super.onDestroy();
 	}
