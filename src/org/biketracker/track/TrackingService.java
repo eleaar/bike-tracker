@@ -23,6 +23,7 @@ import android.util.Log;
 public class TrackingService extends Service {
 
 	private static final String TAG = TrackingService.class.getSimpleName();
+	private static final int UPDATE_RATE = 5000;
 
 	private List<Location> locations = new ArrayList<Location>();
 	private TrackListener listener = new TrackListener();
@@ -41,7 +42,11 @@ public class TrackingService extends Service {
 		LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		manager.requestLocationUpdates(
 				LocationManager.GPS_PROVIDER,
-				5000, 0,
+				UPDATE_RATE, 0,
+				listener);
+		manager.requestLocationUpdates(
+				LocationManager.NETWORK_PROVIDER,
+				UPDATE_RATE, 0,
 				listener);
 	}
 
@@ -53,24 +58,26 @@ public class TrackingService extends Service {
 		LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		manager.removeUpdates(listener);
 
-		final List<Location> currentLocations = locations;
-		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		final Intent intent = new Intent(this, SubmittingService.class);
-		new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				// Saving locations into shared preferences
-				UUID uuid = UUID.randomUUID();
-				preferences
-					.edit()
-					.putString(uuid.toString(), converter.convert(uuid, currentLocations))
-					.commit();
-
-				// Starting the submitting service
-				startService(intent);
-			}
-		}).start();
+		if(!locations.isEmpty()) {
+			final List<Location> currentLocations = locations;
+			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+			final Intent intent = new Intent(this, SubmittingService.class);
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// Saving locations into shared preferences
+					UUID uuid = UUID.randomUUID();
+					preferences
+						.edit()
+						.putString(uuid.toString(), converter.convert(uuid, currentLocations))
+						.commit();
+	
+					// Starting the submitting service
+					startService(intent);
+				}
+			}).start();
+		}
 
 		super.onDestroy();
 	}

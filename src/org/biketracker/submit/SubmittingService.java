@@ -8,6 +8,9 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.biketracker.R;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -26,6 +29,7 @@ public class SubmittingService extends IntentService {
 	private static final String NO_TRACK = "empty";
 
 	private String serverUrl;
+	private HttpHeaders headers;
 	private RestTemplate restTemplate;
 
 	public SubmittingService() {
@@ -36,6 +40,8 @@ public class SubmittingService extends IntentService {
 	public void onCreate() {
 		super.onCreate();
 		serverUrl = getString(R.string.server_url);
+		headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
 		restTemplate = new RestTemplate();
 		restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
 	}
@@ -67,7 +73,7 @@ public class SubmittingService extends IntentService {
 					if (!NO_TRACK.equals(trackData)) {
 						try {
 							// post to server and remove if successful
-							restTemplate.postForObject(serverUrl, trackData, String.class);
+							restTemplate.postForObject(serverUrl, new HttpEntity<String>(trackData, headers), String.class);
 							preferences.edit().remove(trackName).commit();
 							successCounter++;
 						} catch (RestClientException e) {
