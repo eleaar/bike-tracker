@@ -34,7 +34,9 @@ public class LaunchTrackingService extends Activity {
 		Notification note= new NotificationCompat.Builder(
 				this).setSmallIcon(R.drawable.ic_launcher_bike)
 				.setContentTitle(getString(R.string.notificationTitle))
-				.setContentText(getString(R.string.notification_content)).setAutoCancel(true)
+				.setContentText(getString(R.string.notification_content))
+				.setAutoCancel(true)
+				.setOngoing(true)
 				.setContentIntent(pendingIntent)
 				.build();
 		NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
