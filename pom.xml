@@ -6,7 +6,7 @@
 
 	<groupId>org.biketracker</groupId>
 	<artifactId>biketracker</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<packaging>apk</packaging>
 
 	<properties>
@@ -43,7 +43,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>${project.artifactId}</finalName>
+		<finalName>${project.artifactId}-${project.version}</finalName>
 		<sourceDirectory>src</sourceDirectory>
 		<pluginManagement>
 			<plugins>
@@ -59,6 +59,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
